@@ -1,38 +1,49 @@
 #include <iostream>
 #include <vector>
 
-
+// Function to print a vector of integers
 void print_vector(const std::vector <int> &vec);
 
+// Function to print a matrix of integers
 void print_matrix(const std::vector<std::vector<int>> &A);
 
+// Overloaded function to print a vector of doubles
 void print_vector(const std::vector <double> &vec);
 
+// Overloaded function to print a matrix of doubles
 void print_matrix(const std::vector<std::vector<double>> &A);
 
+// Function to multiply a matrix of integers with a vector of integers
 std::vector<int> multiply_matrix_vector(const std::vector<std::vector<int>> &A, const std::vector<int> &vec);
 
+//  Function to multiply a matrix of doubles with a vector of doubles
 std::vector<double> multiply_matrix_vector(const std::vector<std::vector<double>> &A, const std::vector<double> &vec);
 
+// Operator function to multiply a matrix of doubles with a vector of doubles
 std::vector<double> operator*(const std::vector<std::vector<double>> &A, const std::vector<double> &vec);
 
+// Overloaded operator function to multiply a matrix of integers with a vector of integers
 std::vector<int> operator*(const std::vector<std::vector<int>> &A, const std::vector<int> &vec);
 
+// Function to test the matrix-vector product implementation
 bool test_matrix_vector_product();
 
 int main(){
+        //declare a vector of doubles and read its elements from user input
         std::vector <double> vec;
         double element;    
         std::cout << "Give vector elements in a row then press x: " << std::endl;
         while(std::cin >> element){
           vec.push_back(element);
         }
-        std::cin.clear();
-        std::cin.ignore();
+        std::cin.clear(); // clear the error state caused by non-numeric input
+        std::cin.ignore(); // ignore the rest of the line after the non-numeric input
 
-        int N = vec.size();
+        int N = vec.size(); // size of the vector is used to determine the size of the square matrix
+        //declare a square matrix of doubles and read its elements from user input
         std::vector<std::vector<double>> A(N, std::vector<double>(N));
         std::cout << "Give a square " << N << " by " << N << " matrix elements - row first:" << std::endl;
+        // Read the elements of the matrix from user input
         for (int i = 0; i < N; ++i){
           std::cout << "Row " << i << " of matrix A is: " << std::endl;
           for (int j = 0; j<N; ++j){
@@ -41,7 +52,10 @@ int main(){
           }
         }
 
+        // Test the operator* function
         test_matrix_vector_product();
+
+        // Perform matrix-vector multiplication
         const std::vector<double> result = A * vec;
         std::cout << "Result of matrix vector multiplication is: " << std::endl;
         print_vector(result);
@@ -117,6 +131,7 @@ std::vector<double> operator*(const std::vector<std::vector<double>> &A, const s
 std::vector<int> operator*(const std::vector<std::vector<int>> &A, const std::vector<int> &vec){
   return multiply_matrix_vector(A, vec);
 }
+
 
 bool test_matrix_vector_product(){
   std::vector<double> v_test = {1.0, 2.0, 3.0};
